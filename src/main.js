@@ -1,5 +1,3 @@
-import './public-path';
-
 import './assets/main.css';
 
 import { createApp } from 'vue';
@@ -18,6 +16,11 @@ import 'ckeditor5/ckeditor5.css';
 
 import 'element-plus/dist/index.css';
 
+import {
+  renderWithQiankun,
+  qiankunWindow,
+} from 'vite-plugin-qiankun/dist/helper';
+
 let instance = null;
 
 function render(props = {}) {
@@ -30,14 +33,29 @@ function render(props = {}) {
   instance.use(router);
 
   instance.mount(
-    container ? container.querySelector('#rich-text') : '#rich-text',
+    container ? container.querySelector('#richText') : '#richText',
   );
 }
-// const app = createApp(App);
 
-// app.use(createPinia());
-// app.use(ElementPlus);
-// app.use(CkeditorPlugin);
-// app.use(router);
+// 检查是否在 Qiankun 环境中运行
+if (!qiankunWindow.__POWERED_BY_QIANKUN__) {
+  render();
+} else {
+  renderWithQiankun({
+    bootstrap() {
+      console.log('Vue 应用启动');
+    },
+    mount(props) {
+      console.log('[vue] 主框架传递的 props', props);
 
-// app.mount('#app');
+      render(props);
+    },
+    update() {
+      console.log('Vue 应用更新');
+    },
+    unmount() {
+      console.log('Vue 应用卸载');
+      app?.unmount();
+    },
+  });
+}

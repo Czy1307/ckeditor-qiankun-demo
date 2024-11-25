@@ -1,5 +1,5 @@
 <template>
-  <div class="px-30%">
+  <div style="padding: 0 30%">
     <div style="height: 50px">
       <div style="float: right">
         <el-button @click="handleSaveHTML" type="success">保存</el-button>
@@ -197,7 +197,7 @@ const handleSaveHTML = async () => {
     console.log('Editor Content:', editorContent);
 
     // Fetch the complete HTML template
-    const response = await fetch('/api/html');
+    const response = await fetch('http://192.168.50.109:3030/api/html');
     if (!response.ok) {
       throw new Error(`Failed to fetch HTML file: ${response.statusText}`);
     }
@@ -226,7 +226,7 @@ const handleSaveHTML = async () => {
     `;
 
     // Save updated HTML to the server
-    const saveResponse = await fetch('/api/html', {
+    const saveResponse = await fetch('http://192.168.50.109:3030/api/html', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -250,7 +250,7 @@ const previewFullHTML = async () => {
     await handleSaveHTML();
 
     // Open the preview page
-    window.open('http://192.168.50.104:3030/pre.html', '_blank');
+    window.open('http://192.168.50.109:3030/pre.html', '_blank');
   } catch (error) {
     console.error('Error previewing HTML:', error);
   }
@@ -259,7 +259,7 @@ const previewFullHTML = async () => {
 onMounted(async () => {
   // 编辑器实例化后加载初始 HTML
   // Fetch the complete HTML template
-  const response = await fetch('/api/html');
+  const response = await fetch('http://192.168.50.109:3030/api/html');
   if (!response.ok) {
     throw new Error(`Failed to fetch HTML file: ${response.statusText}`);
   }

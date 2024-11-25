@@ -2,11 +2,13 @@ import { fileURLToPath, URL } from 'node:url';
 
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import qiankun from 'vite-plugin-qiankun';
 
 // https://vite.dev/config/
 export default defineConfig({
   server: {
     host: true, // 设置为 true 以启用网络访问
+    base: VITE_PUBLIC_PATH, //必须和基座也就是主应用的activeRule值一致
     proxy: {
       '/api': {
         target: 'http://localhost:3030', // 目标地址
@@ -14,7 +16,12 @@ export default defineConfig({
       },
     },
   },
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    qiankun('apps', {
+      useDevMode: true,
+    }),
+  ],
   css: {
     preprocessorOptions: {
       scss: {

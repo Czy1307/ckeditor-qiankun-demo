@@ -1,13 +1,15 @@
+import { qiankunWindow } from 'vite-plugin-qiankun/dist/helper';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
-  base: window.__POWERED_BY_QIANKUN__ ? '/app-vue/' : '/',
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(
+    qiankunWindow.__POWERED_BY_QIANKUN__ ? '/richText/' : '/child/richText/',
+  ),
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: () => import('../views/Home/index.vue'),
+      path: '/:catchAll(.*)', // 捕获所有路径
+      name: 'RichText',
+      component: () => import('../components/CKEditor.vue'),
     },
   ],
   scrollBehavior(to, from, savedPosition) {
