@@ -7,9 +7,9 @@ const router = createRouter({
   ),
   routes: [
     {
-      path: '/:catchAll(.*)', // 捕获所有路径
-      name: 'RichText',
-      component: () => import('../components/CKEditor.vue'),
+      path: '/',
+      name: 'CkEditor',
+      component: () => import('../views/Home/index.vue'),
     },
   ],
   scrollBehavior(to, from, savedPosition) {

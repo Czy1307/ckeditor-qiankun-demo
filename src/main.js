@@ -13,6 +13,7 @@ import './styles/tailwindInput.css';
 
 // 导入ckeditor样式
 import 'ckeditor5/ckeditor5.css';
+import './styles/style.css';
 
 import 'element-plus/dist/index.css';
 
